@@ -28,7 +28,7 @@ sudo chmod 777 /usr/local/mongodb/log/mongodb.log
 - build up config file
     - ​sudo touch /usr/local/mongodb/mongodb.conf
     - ​sudo chmod 777 /usr/local/mongodb/mongodb.conf
-    *mongodb.conf
+    - ​mongodb.conf
       ```Bash
         dbpath=/usr/local/mongodb/data/db
         logpath=/usr/local/mongodb/log/mongodb.log
@@ -42,7 +42,7 @@ sudo chmod 777 /usr/local/mongodb/log/mongodb.log
 - build up self staring shell
     - ​sudo touch /etc/init.d/mongodb
     -  sudo chmod 777 /etc/init.d/mongodb
-    */etc/init.d/mongodb
+    -  /etc/init.d/mongodb
 ```Bash
       . /lib/lsb/init-functions
       
