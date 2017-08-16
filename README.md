@@ -84,8 +84,7 @@ sudo chmod 777 /usr/local/mongodb/log/mongodb.log
 ``` 
   - sudo update-rc.d mongodb defaults
   - usage: sudo service mongodb start|stop|status
-  - vim /etc/rc.local  add 'sudo /usr/local/mongodb/bin/./mongod -f /usr/local/mongodb/mongodb.conf
- ' before 'exit 0'
+  - vim /etc/rc.local  ADD 'sudo /usr/local/mongodb/bin/./mongod -f /usr/local/mongodb/mongodb.conf' BEFORE 'exit 0'
 
 ##### mongodb master slave cluster build up
 sudo /usr/local/mongodb/bin/./mongod -f /usr/local/mongodb/mongodb.conf --master
