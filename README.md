@@ -44,44 +44,58 @@ sudo chmod 777 /usr/local/mongodb/log/mongodb.log
     -  sudo chmod 777 /etc/init.d/mongodb
     -  /etc/init.d/mongodb
 ```Bash
-      . /lib/lsb/init-functions
-      
-      MONGOPID=`ps -ef|grep '/usr/local/mongodb/bin/./mongod'|grep -v grep|awk '{print $2}'`
+    #!/bin/sh
 
-      case "$1" in
+    ### BEGIN INIT INFO
+    # Provides:     mongodb
+    # Required-Start:
+    # Required-Stop:
+    # Default-Start:        2 3 4 5
+    # Default-Stop:         0 1 6
+    # Short-Description: mongodb
+    # Description: mongo db server
+    ### END INIT INFO
+
+    . /lib/lsb/init-functions
+
+    MONGOPID=`ps -ef|grep '/usr/local/mongodb/bin/./mongod'|grep -v grep|awk '{print $2}'`
+
+
+
+    case "$1" in
       start)
-        ulimit -n 3000
-        log_begin_msg "Starting MongoDB server"
-        if [ ! -z "$MONGOPID" ]; then
-            echo "mongodb is already running"
-        else
-            sudo /usr/local/mongodb/bin/./mongod -f /usr/local/mongodb/mongodb.conf
-        fi
-        log_end_msg 0
+         ulimit -n 3000
+         log_begin_msg "Starting MongoDB server"
+         if [ ! -z "$MONGOPID" ]; then
+          echo "mongodb is already running"
+         else
+          sudo /usr/local/mongodb/bin/./mongod -f /usr/local/mongodb/mongodb.conf
+         fi
+         log_end_msg 0
       ;;
       stop)
-        log_begin_msg "Stopping MongoDB server"
-        if [ ! -z "$MONGOPID" ]; then
-           kill -15 $MONGOPID
-        else
-           echo "mongodb is already stop"
-        fi
-        log_end_msg 0
+         log_begin_msg "Stopping MongoDB server"
+         if [ ! -z "$MONGOPID" ]; then
+            kill -15 $MONGOPID
+         else
+            echo "mongodb is already stop"
+         fi
+         log_end_msg 0
       ;;
       status)
-        if [ ! -z "$MONGOPID" ]; then
-           log_begin_msg "running"
-           log_end_msg 0
-        else
-           log_begin_msg "apparently not running"
-           log_end_msg 0
-           exit 0
-        fi
+         if [ ! -z "$MONGOPID" ]; then
+            log_begin_msg "running"
+            log_end_msg 0
+         else
+            log_begin_msg "apparently not running"
+            log_end_msg 0
+            exit 0
+         fi
       ;;
-      esac
+    esac
 
-      exit 0
-``` 
+    exit 0
+```
   - sudo update-rc.d mongodb defaults
   - usage: sudo service mongodb start|stop|status
   - vim /etc/rc.local  ADD 'sudo /usr/local/mongodb/bin/./mongod -f /usr/local/mongodb/mongodb.conf' BEFORE 'exit 0'
